@@ -1,16 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { Note } from "./components/Note";
 import { Container } from "react-bootstrap";
 import { NewNote } from "./components/NewNote";
-import {
-  Tag,
-  NoteData,
-  RawNote,
-  Note,
-  RawNoteData,
-} from "./components/NoteForm";
+import { Tag, NoteData, RawNote } from "./components/NoteForm";
+
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useMemo } from "react";
 import { NoteList } from "./components/NoteList";
+import { NoteLayout } from "./components/NoteLayout";
 
 function App() {
   const [Notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
@@ -45,7 +42,10 @@ function App() {
   return (
     <Container className="my-4">
       <Routes>
-        <Route path="/" element={<NoteList />} />
+        <Route
+          path="/"
+          element={<NoteList notes={noteWithTags} availableTags={tags} />}
+        />
         <Route
           path="/new"
           element={
@@ -56,8 +56,8 @@ function App() {
             />
           }
         />
-        <Route path="/:id">
-          <Route index element={<h1>Show</h1>} />
+        <Route path="/:id" element={<NoteLayout notes={noteWithTags} />}>
+          <Route index element={<Note />} />
           <Route path="edit" element={<h1>Edit</h1>} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
