@@ -131,7 +131,7 @@ export const NoteList = ({
   );
 };
 
-function NoteCard({ id, title, tags }: SimplifiedNote) {
+const NoteCard = ({ id, title, tags }: SimplifiedNote) => {
   return (
     <Card
       as={Link}
@@ -157,7 +157,7 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
       </Card.Body>
     </Card>
   );
-}
+};
 
 type EditTagsModalProps = {
   availableTags: Tag[];
@@ -167,13 +167,13 @@ type EditTagsModalProps = {
   onDelete: (id: string) => void;
 };
 
-function EditTagsModal({
+const EditTagsModal = ({
   availableTags,
   show,
   handleClose,
   onUpdate,
   onDelete,
-}: EditTagsModalProps) {
+}: EditTagsModalProps) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -207,4 +207,4 @@ function EditTagsModal({
       </Modal.Body>
     </Modal>
   );
-}
+};
